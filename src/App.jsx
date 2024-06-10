@@ -45,7 +45,8 @@ function App() {
 
       const data = await res.json();
       if(res.ok){
-        setLeaderboard(data);
+        const sortedData = data.sort((a, b) => a.time - b.time);
+        setLeaderboard(sortedData);
       }
 
     } catch (error) {
@@ -65,7 +66,7 @@ function App() {
           <h2>Best times</h2>
           <ul>
             {leaderboard.map((item, index) => (
-              <div className='item' key={index}>{index+1}. <b>{item.dispositive}</b>: {item.time} seconds</div>
+              <div className='item' key={index}>{index+1}. <b>{item.dispositive}</b>: {Math.round(item.time * 100) / 100} seconds</div>
             ))}
           </ul>
         </div>
